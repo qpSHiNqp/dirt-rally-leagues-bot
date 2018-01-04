@@ -1,0 +1,10 @@
+#$ crontab -u monoceros etc/crontab
+#PATH=/usr/local/bin:/usr/bin:/bin
+MAILTO=shin.bassman@gmail.com
+
+0 12  * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails notification:closing_event
+0 */1 * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails notification:closed_event
+0 */1 * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails notification:closed_season
+0 12  * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails notification:starting_season
+0 12  * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails notification:starting_event
+0 */1 * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails crawler:seasons:sync
