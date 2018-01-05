@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104100650) do
+ActiveRecord::Schema.define(version: 20180105104209) do
 
   create_table "channels", primary_key: "channel_id", force: :cascade do |t|
     t.integer "league_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "webhook_url"
     t.index ["league_id"], name: "index_channels_on_league_id"
   end
 
@@ -34,13 +35,22 @@ ActiveRecord::Schema.define(version: 20180104100650) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "event_leaderboards", force: :cascade do |t|
+    t.string "content"
+    t.integer "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_leaderboards_on_event_id"
+  end
+
   create_table "events", primary_key: "event_id", force: :cascade do |t|
     t.datetime "open_at"
     t.datetime "close_at"
-    t.string "leaderboard"
     t.integer "season_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "countries"
     t.index ["season_id"], name: "index_events_on_season_id"
   end
 
@@ -50,8 +60,15 @@ ActiveRecord::Schema.define(version: 20180104100650) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "season_standings", force: :cascade do |t|
+    t.string "content"
+    t.integer "season_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["season_id"], name: "index_season_standings_on_season_id"
+  end
+
   create_table "seasons", primary_key: "season_id", force: :cascade do |t|
-    t.string "leaderboard"
     t.integer "league_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

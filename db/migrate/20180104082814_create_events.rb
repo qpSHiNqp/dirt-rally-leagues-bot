@@ -3,7 +3,6 @@ class CreateEvents < ActiveRecord::Migration[5.1]
     create_table :events, :primary_key => :event_id do |t|
       t.datetime :open_at
       t.datetime :close_at
-      t.string :leaderboard
       t.references :season
 
       t.timestamps

@@ -215,6 +215,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  delayed_job
   delayed_job_active_record
   discordrb
   jbuilder (~> 2.5)

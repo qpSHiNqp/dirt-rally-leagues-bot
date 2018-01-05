@@ -8,3 +8,4 @@ MAILTO=shin.bassman@gmail.com
 0 12  * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails notification:starting_season
 0 12  * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails notification:starting_event
 0 */1 * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails crawler:seasons:sync
+*/5 * * * * cd /home/shintaro/bots/leagues && RAILS_ENV=production bundle exec rails crawler:leaderboard:sync
