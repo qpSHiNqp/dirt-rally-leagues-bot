@@ -15,7 +15,9 @@ class SeasonUpdateJob < ApplicationJob
       overview_doc = Nokogiri::HTML.parse(html, nil, charset)
 
       node = overview_doc.css('div[data-ng-show="season == \'current\'"]')
-      season_id = node.css('div.league_season_schedule').attribute('data-ng-init')
+      schedule = node.css('div.league_season_schedule')
+      next unless schedule
+      season_id = schedule.attribute('data-ng-init')
                       .text.split(' ')[2]
       events = node.css('select#eventid > option').map {|opt|
         {
