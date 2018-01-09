@@ -2,9 +2,9 @@ require 'json'
 
 class EventLeaderboard < ApplicationRecord
   belongs_to :event
-  def to_string
+  def to_s
     JSON.parse(self.content).map {|e|
-      "#{e['Position']}, #{e['Name']}, #{e['VehicleName']}, #{e['Time']}, #{e['DiffFirst']}"
+      "#{e['Position'].to_s.rjust(2)}, #{e['Name'].ljust(12)}, #{e['VehicleName'].ljust(28)}, #{e['Time'].rjust(10)}, #{e['DiffFirst'].rjust(12)}"
     }.join("\n")
   end
 end

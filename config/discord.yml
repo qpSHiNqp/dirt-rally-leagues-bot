@@ -1,0 +1,7 @@
+default: &default
+  token: <%= ENV['DISCORD_TOKEN'] %>
+  client_id: <%= ENV['DISCORD_CLIENT_ID'] %>
+development:
+  <<: *default
+production:
+  <<: *default

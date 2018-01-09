@@ -1,3 +1,3 @@
 class Channel < ApplicationRecord
-  has_one :league
+  belongs_to :league
 end

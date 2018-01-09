@@ -12,7 +12,8 @@
 
 ActiveRecord::Schema.define(version: 20180105104209) do
 
-  create_table "channels", primary_key: "channel_id", force: :cascade do |t|
+  create_table "channels", force: :cascade do |t|
+    t.string "channel_id"
     t.integer "league_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -2,9 +2,10 @@ require 'json'
 
 class SeasonStanding < ApplicationRecord
   belongs_to :season
-  def to_string
+  def to_s
+    "Rank, Player      , Points, SeasonWins\n" +
     JSON.parse(self.content).map {|e|
-      "#{e['Position'].to_s.rjust(2)}, #{e['Name'].ljust(12)}, #{e['VehicleName'].ljust(24)}, #{e['Time'].ljust(18)}, #{e['DiffFirst'].ljust(16)}"
+      "#{e['Rank'].to_s.rjust(4)}, #{e['DisplayName'].ljust(12)}, #{e['PointScore'].to_s.rjust(6)}, #{e['SeasonWins'].to_s.rjust(10)}"
     }.join("\n")
   end
 end

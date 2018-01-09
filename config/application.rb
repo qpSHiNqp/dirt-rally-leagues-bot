@@ -21,5 +21,7 @@ module Leagues
     # Timezone
     config.time_zone = 'Asia/Tokyo'
     config.active_record.default_timezone = :local
+
+    config.discord = config_for(:discord)
   end
 end
