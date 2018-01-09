@@ -16,7 +16,7 @@ class SeasonUpdateJob < ApplicationJob
 
       node = overview_doc.css('div[data-ng-show="season == \'current\'"]')
       schedule = node.css('div.league_season_schedule')
-      next unless schedule
+      next unless schedule.present?
       season_id = schedule.attribute('data-ng-init')
                       .text.split(' ')[2]
       events = node.css('select#eventid > option').map {|opt|
