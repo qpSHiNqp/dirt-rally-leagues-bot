@@ -3,7 +3,9 @@ class StartingSeasonNotificationJob < ApplicationJob
 
   def perform()
     # Find seasons starting within the next 1.day
-    starting_seasons = Season.where(open_at: Time.zone.now..1.day.from_now)
+    starting_seasons = Event.where(open_at: Time.zone.now..1.day.from_now).select {|event|
+      Time.zone.now <= event.season.open_at and event.season.open_at <= 1.day.from_now
+    }.map{|event| event.season}
     bot = Discordrb::Bot.new token: Rails.configuration.discord['token']
 
     starting_seasons.each do |season|
