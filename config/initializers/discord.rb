@@ -25,17 +25,25 @@ end
 
 bot.command :season do |event|
   if Channel.exists?(channel_id: event.channel.id)
-    "```#{Channel.find_by(channel_id: event.channel.id).league.current_season.to_s}```"
+    begin
+      "```#{Channel.find_by(channel_id: event.channel.id).league.current_season.to_s}```"
+    rescue NoMethodError
+      "現在開催中のシーズンはありません"
+    end
   else
-    "No information found. Have you registered the channel with league? Type /register to retrieve league information"
+    "シーズン情報が見つかりませんでした。/registerコマンドでBotを登録してからイベント情報が更新されるまでに時間がかかる場合があります"
   end
 end
 
 bot.command :event do |event|
   if Channel.exists?(channel_id: event.channel.id)
-    "```#{Channel.find_by(channel_id: event.channel.id).league.current_season.current_event.to_s}```"
+    begin
+      "```#{Channel.find_by(channel_id: event.channel.id).league.current_season.current_event.to_s}```"
+    rescue NoMethodError
+      "現在開催中のイベントはありません"
+    end
   else
-    "No information found. Have you registered the channel with league? Type /register to retrieve league information"
+    "イベント情報が見つかりませんでした。/registerコマンドでBotを登録してからイベント情報が更新されるまでに時間がかかる場合があります"
   end
 end
 
