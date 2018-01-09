@@ -3,7 +3,7 @@ class StartingEventNotificationJob < ApplicationJob
 
   def perform()
     # Find events starting within the next 1.day
-    starting_events = Events.where(open_at: Time.zone.now..1.day.from_now)
+    starting_events = Event.where(open_at: Time.zone.now..1.day.from_now)
     bot = Discordrb::Bot.new token: Rails.configuration.discord['token']
 
     starting_events.each do |event|
