@@ -36,7 +36,10 @@ if defined?(Rails::Server)
       "```#{season.to_s}```"
     elsif Channel.exists?(channel_id: event.channel.id)
       begin
-        "```#{Channel.find_by(channel_id: event.channel.id).league.current_season.to_s}```"
+        season = Channel.find_by(channel_id: event.channel.id).league.current_season
+        "現在開催中のシーズン (#{season.open_at} 〜 #{season.close_at})\n" +
+        "全#{season.events.count}戦中#{season.events.order(open_at: :ASC).pluck(:event_id).index(season.current_event.event_id)}戦終了時点でのポイントランキング:\n" +
+        "```#{season.to_s}```"
       rescue NoMethodError
         "現在開催中のシーズンはありません"
       end
@@ -56,7 +59,9 @@ if defined?(Rails::Server)
       "```#{event.to_s}```"
     elsif Channel.exists?(channel_id: event.channel.id)
       begin
-        "```#{Channel.find_by(channel_id: event.channel.id).league.current_season.current_event.to_s}```"
+        event = Channel.find_by(channel_id: event.channel.id).league.current_season.current_event
+        "現在の#{event.title} (#{event.countries}) は#{event.open_at} 〜 #{event.close_at}の期間で開催されています. 現在の完走者順位:\n" +
+        "```#{event.to_s}```"
       rescue NoMethodError
         "現在開催中のイベントはありません"
       end
