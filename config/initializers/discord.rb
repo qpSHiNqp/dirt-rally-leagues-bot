@@ -23,8 +23,16 @@ bot.command(:register,
   "Registered notification for #{league_name} league"
 end
 
-bot.command :season do |event|
-  if Channel.exists?(channel_id: event.channel.id)
+bot.command(:season,
+            min_args: 0,
+            max_args: 1,
+            description: 'シーズン情報を表示します',
+            usage: 'season [season_id]') do |event, season_id|
+  if season_id.present? and Season.exists?(season_id: season_id)
+    season = Season.find_by(season_id: season_id)
+    "#{season.open_at} 〜 #{season.close_at} シーズンのポイントランキング:\n" +
+    "```#{season.to_s}```"
+  elsif Channel.exists?(channel_id: event.channel.id)
     begin
       "```#{Channel.find_by(channel_id: event.channel.id).league.current_season.to_s}```"
     rescue NoMethodError
@@ -35,8 +43,16 @@ bot.command :season do |event|
   end
 end
 
-bot.command :event do |event|
-  if Channel.exists?(channel_id: event.channel.id)
+bot.command(:event,
+           min_args: 0,
+           max_args: 1,
+           description: 'イベント情報を表示します',
+           usage: 'event [event_id]') do |event, event_id|
+  if event_id.present? and Event.exists?(event_id: event_id)
+    event = Event.find_by(event_id: event_id)
+    "#{event.open_at} 〜 #{event.close_at} 開催の #{event.title} (#{event.countries}) の順位は\n" +
+    "```#{event.to_s}```"
+  elsif Channel.exists?(channel_id: event.channel.id)
     begin
       "```#{Channel.find_by(channel_id: event.channel.id).league.current_season.current_event.to_s}```"
     rescue NoMethodError

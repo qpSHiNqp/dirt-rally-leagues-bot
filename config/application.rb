@@ -16,7 +16,8 @@ module Leagues
     # -- all .rb files in that directory are automatically loaded.
 
     # Async Jobs
-    config.active_job.queue_adapter = :delayed_job
+    #config.active_job.queue_adapter = :delayed_job
+    config.active_job.queue_adapter = :async
 
     # Timezone
     config.time_zone = 'Asia/Tokyo'
