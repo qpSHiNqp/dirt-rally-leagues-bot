@@ -3,7 +3,9 @@ class ClosedSeasonNotificationJob < ApplicationJob
 
   def perform()
     # Find seasons closed within the last 1.hour
-    closed_seasons = Season.where(close_at: 1.hour.ago..Time.zone.now)
+    closed_seasons = Event.where(close_at: 1.hour.ago..Time.zone.now).select {|event|
+      1.hour.ago <= event.season.close_at and event.season.close_at <= Time.zone.now
+    }.map{|event| event.season}
     bot = Discordrb::Bot.new token: Rails.configuration.discord['token']
 
     closed_seasons.each do |season|
