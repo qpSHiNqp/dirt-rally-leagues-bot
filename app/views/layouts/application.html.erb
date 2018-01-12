@@ -9,6 +9,21 @@
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">
+            DiRT Rally Leagues <!-- FIXME -->
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-left">
+          <li><%= link_to 'League一覧へ', leagues_path %></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

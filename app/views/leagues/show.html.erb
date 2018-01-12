@@ -1,0 +1,34 @@
+<h2><%= @league.league_name %> League</h2>
+<h3>開催情報</h3>
+<p>シーズン期間: <%= @league.current_season.open_at.strftime('%Y/%m/%d %H:%M') %> 〜 <%= @league.current_season.close_at.strftime('%Y/%m/%d %H:%M (JST)') %></p>
+<p>開催中のイベント: 第<%= @league.current_season.completed_event_num + 1 %>戦 (<%= @league.current_season.current_event.countries %>) / 全<%= @league.current_season.events.count %>戦</p>
+<p>現在のイベントの終了日時: <%= @league.current_season.current_event.close_at.strftime('%Y/%m/%d %H:%M (JST)') %></p>
+
+<h3>今シーズンのポイントランキング</h3>
+<table class="table table-striped table-hover">
+  <thead class="thead-default">
+    <tr>
+      <th>Rank</th>
+      <th>Driver</th>
+      <th>Point</th>
+      <th>Season wins</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% JSON.parse(@league.current_season.standing.content).each do |entry| %>
+      <tr>
+        <td><%= entry["Rank"] %></td>
+        <td><%= link_to entry["DisplayName"], "//dirtgame.com" + entry["ProfileUrl"] %></td>
+        <td><%= entry["PointScore"] %></td>
+        <td><%= entry["SeasonWins"] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3><%= @league.league_name %>の全シーズン一覧</h3>
+作成中です
+<%=
+  #render partial: 'seasons/index'
+%>

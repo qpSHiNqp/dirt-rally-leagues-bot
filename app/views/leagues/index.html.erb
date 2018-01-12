@@ -1,0 +1,30 @@
+<h2>Welcome to DiRT Rally Leagues Bot</h2>
+
+<p>このサイトでは自称うろたん氏 (<a href="https://twitter.com/qpSHiNqp">@qpSHiNqp</a>)によって管理されているリーグの情報/戦績などをまとめています</p>
+<p>各Leagueは公開リーグなので、ご自由にJOIN US!</p>
+<p>League参加方法などは今後随時追記していきます。</p>
+<p>不明点などあればTwitterで@mention送ってください。</p>
+
+<h3>管理League一覧</h3>
+<table class="table table-striped table-hover">
+  <thead class="thead-default">
+    <tr>
+      <th>League Name</th>
+      <th>今シーズンの開催期間</th>
+      <th>開催中のイベント</th>
+      <th>現在のイベント期間</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @leagues.each do |league| %>
+      <tr>
+        <td><%= link_to league.league_name, league %></td>
+        <td><%= league.current_season.open_at.strftime('%Y/%m/%d %H:%M') %> 〜<br><%= league.current_season.close_at.strftime('%Y/%m/%d %H:%M (JST)') %></td>
+        <td>第<%= league.current_season.completed_event_num + 1 %>戦 (<%= league.current_season.current_event.countries %>) / 全<%= league.current_season.events.count %>戦</td>
+        <td><%= league.current_season.current_event.open_at.strftime('%Y/%m/%d %H:%M') %> 〜<br><%= league.current_season.current_event.close_at.strftime('%Y/%m/%d %H:%M (JST)') %></th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
