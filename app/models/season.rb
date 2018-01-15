@@ -13,6 +13,12 @@ class Season < ApplicationRecord
   def current_event
     self.events.select {|e| e.open_at <= Time.now && Time.now <= e.close_at }.first
   end
+  def completed?
+    (close_at < Time.zone.now)
+  end
+  def ongoing?
+    Time.zone.now.between?(open_at, close_at)
+  end
   def completed_event_num
     events.order(open_at: :ASC).pluck(:event_id).index(current_event.event_id)
   end

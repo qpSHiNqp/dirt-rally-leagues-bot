@@ -1,0 +1,19 @@
+<table class="table table-striped table-hover">
+  <thead class="thead-default">
+    <tr>
+      <th>イベント</th>
+      <th>期間 (日本時間)</th>
+      <th>開催地</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @season.events.each do |event| %>
+      <tr class="<%= event.ongoing? ? 'success' : '' %>">
+        <td><%= event.title %></td>
+        <td><%= event.open_at.strftime('%Y/%m/%d %H:%M') %> 〜 <%= event.close_at.strftime('%Y/%m/%d %H:%M') %></td>
+        <td><%= event.countries %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

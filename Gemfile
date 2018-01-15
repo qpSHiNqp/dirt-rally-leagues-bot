@@ -61,3 +61,4 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
+gem 'whenever', :require => false

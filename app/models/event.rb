@@ -5,6 +5,15 @@ class Event < ApplicationRecord
   scope :completed, -> { where(["close_at <= ?", Time.zone.now]) }
   scope :scheduled, -> { where(["open_at > ?", Time.zone.now]) }
 
+  def ongoing?
+    Time.zone.now.between?(open_at, close_at)
+  end
+  def completed?
+    (Time.zone.now > close_at)
+  end
+  def scheduled?
+    (Time.zone.now < open_at)
+  end
   def to_s
     self.leaderboard.to_s
   end

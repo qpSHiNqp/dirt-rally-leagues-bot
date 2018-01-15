@@ -23,6 +23,21 @@
     </nav>
 
     <div class="container">
+      <div class="row">
+        <div class="col-md-12" main>
+          <% if yield(:title) %>
+            <h1 class="page-header"><%= yield(:title) %></h1>
+          <% end %>
+          <% if flash[:notice] %>
+            <div class="alert alert-info"><%= flash[:notice] %></div>
+          <% end %>
+          <% if flash[:error] %>
+            <div class="alert alert-danger"><%= flash[:error] %></div>
+          <% end %>
+          <% flash.clear %>
+        </div>
+      </div>
+
       <%= yield %>
     </div>
   </body>
