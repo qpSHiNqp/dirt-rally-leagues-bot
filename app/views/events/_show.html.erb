@@ -1,0 +1,79 @@
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#<%= event.title.gsub(' ', '') %>-final">All</a></li>
+  <% if event.stages.present? and event.stages > 0 %>
+    <% for i in 1..(event.stages) %>
+      <li><a data-toggle="tab" href="#<%= event.title.gsub(' ', '') %>-<%= i %>">SS <%= i %></a></li>
+    <% end %>
+  <% end %>
+</ul>
+<div class="tab-content">
+  <div id="<%= event.title.gsub(' ', '') %>-final" class="tab-pane fade in active">
+    <% if event.leaderboard.present? and JSON.parse(event.leaderboard.content).length > 0 %>
+      <table class="table table-striped table-hover table-responsive">
+        <thead class="thead-default">
+          <tr>
+            <th>#</th>
+            <th>Entrant</th>
+            <th>車種</th>
+            <th>タイム</th>
+            <th>Diff</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% JSON.parse(event.leaderboard.content).each do |entry| %>
+            <tr>
+              <td><%= entry["Position"] %></td>
+              <td><%= entry["Name"] %></td>
+              <td><%= entry["VehicleName"] %></td>
+              <td><%= entry["Time"] %></td>
+              <td><%= entry["DiffFirst"] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>リザルトがありません</p>
+    <% end %>
+  </div>
+  <% if event.stages.present? and event.stages > 0 %>
+    <% for i in 1..event.stages %>
+      <div id="<%= event.title.gsub(' ', '') %>-<%= i %>" class="tab-pane fade">
+        <% if event.stage_leaderboards.where(stage_id: i).count > 0 then
+             stage = event.stage_leaderboards.where(stage_id: i).first
+        %>
+          <div class="row stage-info">
+            <%= image_tag "https://www.dirtgame.com#{stage.stage_image}", class: "stage-image" %>
+            <p><%= stage.stage_name %>, <%= stage.location %>&nbsp;<%= image_tag "https://www.dirtgame.com#{stage.location_image}", class: "location-image" %></p>
+            <p><%= stage.time_of_day %> / <%= stage.weather %>&nbsp;<%= image_tag "https://www.dirtgame.com#{stage.weather_image}", class: "weather-image" %></p>
+          </div>
+          <table class="table table-striped table-hover table-responsive">
+            <thead class="thead-default">
+              <tr>
+                <th>#</th>
+                <th>Entrant</th>
+                <th>車種</th>
+                <th>タイム</th>
+                <th>トップとの差</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% JSON.parse(event.stage_leaderboards.where(stage_id: i).first.content).each do |entry| %>
+                <tr>
+                  <td><%= entry["Position"] %></td>
+                  <td><%= entry["Name"] %></td>
+                  <td><%= entry["VehicleName"] %></td>
+                  <td><%= entry["Time"] %></td>
+                  <td><%= entry["DiffFirst"] %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>リザルトが記録されていません</p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

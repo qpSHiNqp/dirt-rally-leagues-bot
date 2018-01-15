@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width">
     <title>Leagues</title>
     <%= csrf_meta_tags %>
 
@@ -12,30 +13,33 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">
-            DiRT Rally Leagues <!-- FIXME -->
-          </a>
+          <a class="navbar-brand" href="/">DR Records</a>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to 'League一覧へ', leagues_path %></li>
+          </ul>
         </div>
-        <ul class="nav navbar-nav navbar-left">
-          <li><%= link_to 'League一覧へ', leagues_path %></li>
-        </ul>
       </div>
     </nav>
 
     <div class="container">
-      <div class="row">
-        <div class="col-md-12" main>
-          <% if yield(:title) %>
-            <h1 class="page-header"><%= yield(:title) %></h1>
-          <% end %>
-          <% if flash[:notice] %>
-            <div class="alert alert-info"><%= flash[:notice] %></div>
-          <% end %>
-          <% if flash[:error] %>
-            <div class="alert alert-danger"><%= flash[:error] %></div>
-          <% end %>
-          <% flash.clear %>
+      <% if flash[:notice] or flash[:error] %>
+        <div class="row">
+          <div class="col-md-12">
+            <% if flash[:notice] %>
+              <div class="alert alert-info"><%= flash[:notice] %></div>
+            <% end %>
+            <% if flash[:error] %>
+              <div class="alert alert-danger"><%= flash[:error] %></div>
+            <% end %>
+            <% flash.clear %>
+          </div>
         </div>
+      <% end %>
+
+      <div class="row">
+        <% if yield(:title) %>
+          <h1 class="page-header"><%= yield(:title) %></h1>
+        <% end %>
       </div>
 
       <%= yield %>

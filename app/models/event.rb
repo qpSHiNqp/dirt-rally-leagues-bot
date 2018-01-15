@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   has_one :leaderboard, :class_name => "EventLeaderboard"
+  has_many :stage_leaderboards
   belongs_to :season
   scope :ongoing,   -> { where(["open_at <= ? and close_at > ?", Time.zone.now, Time.zone.now]) }
   scope :completed, -> { where(["close_at <= ?", Time.zone.now]) }

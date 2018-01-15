@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180105104209) do
+ActiveRecord::Schema.define(version: 20180115100808) do
 
   create_table "channels", force: :cascade do |t|
     t.string "channel_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20180105104209) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.string "countries"
+    t.integer "stages"
     t.index ["season_id"], name: "index_events_on_season_id"
   end
 
@@ -74,6 +75,27 @@ ActiveRecord::Schema.define(version: 20180105104209) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["league_id"], name: "index_seasons_on_league_id"
+  end
+
+  create_table "stage_leaderboards", force: :cascade do |t|
+    t.string "content"
+    t.integer "stage_id"
+    t.integer "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "location"
+    t.string "location_image"
+    t.string "stage_name"
+    t.string "stage_image"
+    t.string "time_of_day"
+    t.string "weather"
+    t.string "weather_image"
+    t.boolean "stage_retry"
+    t.boolean "has_service_area"
+    t.boolean "allow_career_engineers"
+    t.boolean "allow_vehicle_tuning"
+    t.boolean "is_checkpoint"
+    t.index ["event_id"], name: "index_stage_leaderboards_on_event_id"
   end
 
 end

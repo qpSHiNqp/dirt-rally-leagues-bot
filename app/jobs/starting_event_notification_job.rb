@@ -11,6 +11,7 @@ class StartingEventNotificationJob < ApplicationJob
       minutes = (((event.open_at - Time.zone.now) - hours * 1.hour) / 1.minute).round
       event.season.league.channels.each do |ch|
         bot.send_message(ch.channel_id, "あと#{hours}時間#{minutes}分で#{event.title} (#{event.countries})が始まります")
+        bot.send_message(Rails.application.routes.url_helpers.season_url event.season)
       end
     end
   end

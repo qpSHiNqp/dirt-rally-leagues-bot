@@ -20,7 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 set :output, "/var/log/whenever"
 
-every :minute do
+every '14,29,44,59 * * * *' do
   rake "crawler:leaderboard:sync"
 end
 
@@ -31,7 +31,7 @@ every :day, :at => '12pm' do
 end
 
 every :hour do
+  rake "crawler:seasons:sync"
   rake "notification:closed_event"
   rake "notification:closed_season"
-  rake "notification:seasons:sync"
 end

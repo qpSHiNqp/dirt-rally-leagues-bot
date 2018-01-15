@@ -1,18 +1,26 @@
-<table class="table table-striped table-hover">
+<table class="table table-bordered table-responsive">
   <thead class="thead-default">
     <tr>
       <th>イベント</th>
       <th>期間 (日本時間)</th>
-      <th>開催地</th>
+      <th>リザルト</th>
     </tr>
   </thead>
 
   <tbody>
     <% @season.events.each do |event| %>
       <tr class="<%= event.ongoing? ? 'success' : '' %>">
-        <td><%= event.title %></td>
-        <td><%= event.open_at.strftime('%Y/%m/%d %H:%M') %> 〜 <%= event.close_at.strftime('%Y/%m/%d %H:%M') %></td>
-        <td><%= event.countries %></td>
+        <td><%= event.title %> (<%= event.countries %>)</td>
+        <td><small><%= event.open_at.strftime('%Y/%m/%d %H:%M') %> 〜 <%= event.close_at.strftime('%Y/%m/%d %H:%M') %></small></td>
+        <td><%= link_to "##{event.title.gsub(' ', '')}-result", data: { toggle: "collapse" } do %>
+          リザルト<span class="caret"></span>
+        <% end %>
+        </td>
+      </tr>
+      <tr id='<%= event.title.gsub(' ', '') %>-result' class="collapse results">
+        <td colspan="4">
+          <%= render partial: 'events/show', locals: {event: event} %>
+        </td>
       </tr>
     <% end %>
   </tbody>

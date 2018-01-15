@@ -13,6 +13,7 @@ class StartingSeasonNotificationJob < ApplicationJob
       minutes = (((season.open_at - Time.zone.now) - hours * 1.hour) / 1.minute).round
       season.league.channels.each do |ch|
         bot.send_message(ch.channel_id, "あと#{hours}時間#{minutes}分で#{season.league.league_name}の次シーズンが始まります")
+        bot.send_message(Rails.application.routes.url_helpers.season_url season)
       end
     end
   end

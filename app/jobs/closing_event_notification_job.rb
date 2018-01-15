@@ -13,6 +13,7 @@ class ClosingEventNotificationJob < ApplicationJob
         bot.send_message(ch.channel_id, "あと#{hours}時間#{minutes}分で#{event.title} (#{event.countries})が終了します")
         bot.send_message(ch.channel_id, "現在の完走者と順位:\n" + 
                          "```#{event.leaderboard.to_s}```")
+        bot.send_message(Rails.application.routes.url_helpers.season_url season)
       end
     end
   end
