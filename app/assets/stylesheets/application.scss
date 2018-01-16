@@ -48,7 +48,7 @@ img.stage-image {
   bottom: 0;
 }
 .weather-image {
-  max-height: 3em;
+  max-height: 2.5em;
 }
 .location-image {
   max-height: 2em;
@@ -113,4 +113,8 @@ img.stage-image {
 
 .results {
   background-color: #eee;
+}
+
+.stage-config {
+  font-size: 0.8em;
 }

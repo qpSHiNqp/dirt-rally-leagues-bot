@@ -10,10 +10,10 @@ class ClosedSeasonNotificationJob < ApplicationJob
 
     closed_seasons.each do |season|
       season.league.channels.each do |ch|
-        bot.send_message(ch.channel_id, "#{season.league.league_name}のシーズンが終了しました")
-        bot.send_message(ch.channel_id, "順位:\n" + 
-                         "```#{season.standing.to_s}```")
-        bot.send_message(Rails.application.routes.url_helpers.season_url season)
+        bot.send_message(ch.channel_id, "#{season.league.league_name}のシーズンが終了しました\n" +
+        "順位:\n" +
+        "```#{season.standing.to_s}```\n" +
+        Rails.application.routes.url_helpers.season_url(season));
       end
     end
   end

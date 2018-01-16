@@ -1,4 +1,12 @@
 namespace :notification do
+  desc "Check for all the notification"
+  task :all => :environment do
+    Rake::Task["notification:closing_event"].invoke
+    Rake::Task["notification:closed_event"].invoke
+    Rake::Task["notification:closed_season"].invoke
+    Rake::Task["notification:starting_season"].invoke
+    Rake::Task["notification:starting_event"].invoke
+  end
   desc "Notify closing event to registered discord channel"
   task :closing_event => :environment do
     ClosingEventNotificationJob.perform_later

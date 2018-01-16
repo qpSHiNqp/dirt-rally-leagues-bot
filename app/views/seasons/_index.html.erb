@@ -10,7 +10,7 @@
 
   <tbody>
     <% seasons.each do |season| %>
-      <tr>
+      <tr class="<%= season.ongoing? ? 'success' : '' %>">
         <td><%= season.ongoing? ? "開催中" : (season.completed? ? "終了" : "未開催") %></td>
         <td><%= link_to "#{season.open_at.strftime('%Y/%m/%d %H:%M')} 〜 #{season.close_at.strftime('%Y/%m/%d %H: %M')} (JST)", season %></td>
         <td><% if season.ongoing? then %>
