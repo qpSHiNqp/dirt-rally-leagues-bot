@@ -11,7 +11,7 @@ class ClosedEventNotificationJob < ApplicationJob
         bot.send_message(ch.channel_id, "#{event.title} (#{event.countries})が終了しました\n" +
         "順位:\n" +
           "```#{event.leaderboard.to_s}```\n" +
-        Rails.application.routes.url_helpers.season_url(event.season))
+        Rails.application.routes.url_helpers.season_url(event.season) + "##{event.title.gsub(' ', '')}")
       end
     end
   end

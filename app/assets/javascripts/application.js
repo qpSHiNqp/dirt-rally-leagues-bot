@@ -15,3 +15,11 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap-sprockets
+
+$(document).ready(function() {
+  if (window.location.hash !== "") {
+    var target = $(window.location.hash);
+    $(target).next().addClass("in");
+    $("body").animate({scrollTop: $(target).offset().top - 80}, "slow");
+  }
+});

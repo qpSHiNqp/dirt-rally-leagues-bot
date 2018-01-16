@@ -9,7 +9,7 @@
 
   <tbody>
     <% @season.events.each do |event| %>
-      <tr class="<%= event.ongoing? ? 'success' : '' %>">
+      <tr class="<%= event.ongoing? ? 'success' : '' %>" id="<%= event.title.gsub(' ', '') %>">
         <td><%= event.title %> (<%= event.countries %>)</td>
         <td><small><%= event.open_at.strftime('%Y/%m/%d %H:%M') %> 〜 <%= event.close_at.strftime('%Y/%m/%d %H:%M') %></small></td>
         <td><%= link_to "##{event.title.gsub(' ', '')}-result", data: { toggle: "collapse" } do %>
