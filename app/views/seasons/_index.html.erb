@@ -14,7 +14,7 @@
         <td><%= season.ongoing? ? "開催中" : (season.completed? ? "終了" : "未開催") %></td>
         <td><%= link_to "#{season.open_at.strftime('%Y/%m/%d %H:%M')} 〜 #{season.close_at.strftime('%Y/%m/%d %H:%M')} (JST)", season %></td>
         <td><% if season.ongoing? then %>
-          第<%= season.completed_event_num + 1 %>戦 (<%= season.current_event.countries %>) / 全<%= season.events.count %>戦
+          第<%= season.completed_event_num + 1 %>戦<%= season.current_event.present? ? " (#{season.current_event.countries})" : "" %> / 全<%= season.events.count %>戦
         <% else %>
           全<%= season.events.count %>戦
         <% end %></td>
