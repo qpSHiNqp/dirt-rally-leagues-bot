@@ -26,12 +26,12 @@ end
 
 every :day, :at => '12pm' do
   rake "notification:closing_event"
-  rake "notification:starting_season"
-  rake "notification:starting_event"
 end
 
 every :hour do
   rake "crawler:seasons:sync"
   rake "notification:closed_event"
   rake "notification:closed_season"
+  rake "notification:starting_season"
+  rake "notification:starting_event"
 end
