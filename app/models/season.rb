@@ -20,7 +20,8 @@ class Season < ApplicationRecord
     Time.zone.now.between?(open_at, close_at)
   end
   def completed_event_num
-    events.order(open_at: :ASC).pluck(:event_id).index(current_event.event_id)
+    current_event.present ?
+      events.order(open_at: :ASC).pluck(:event_id).index(current_event.event_id) : 0
   end
   def to_s
     self.standing.to_s
