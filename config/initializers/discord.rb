@@ -16,12 +16,14 @@ if defined?(Rails::Server)
     league = League.find_or_create_by(team_id: team_id) do |l|
       l.league_name = league_name
     end
-    unless league.channels.exists?(channel_id: event.channel.id)
-      league.channels.build(channel_id: event.channel.id).save
+    if league.channels.exists?(channel_id: event.channel.id)
+      league.channels.find_by(channel_id: event.channel.id).update(server_name: event.channel.server.name)
+    else
+      league.channels.build(channel_id: event.channel.id, server_name: event.channel.server.name).save
     end
     SeasonUpdateJob.perform_later
     SeasonStandingUpdateJob.perform_later
-    EventLeaderboardUpdateJob.perform_later
+    league.current_season.events.each {|evt| EventLeaderboardUpdateJob.perform_later evt}
     "Registered notification for #{league_name} league"
   end
 
