@@ -30,7 +30,7 @@
             <%= image_tag('link.png') %>
           <% end %>
         <% else %>
-          <td><%= link_to league.league_name, league.events.last %></td>
+          <td><%= link_to league.league_name, league.seasons.last %></td>
           <td colspan="4">現在開催中のシーズンはありません</td>
         <% end %>
       </tr>

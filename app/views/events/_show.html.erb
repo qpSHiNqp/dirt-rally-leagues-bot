@@ -64,9 +64,15 @@
             </thead>
 
             <tbody>
-              <% JSON.parse(event.stage_leaderboards.where(stage_id: i).first.content).each do |entry| %>
+              <%
+                  curr_result = calc_stage_diff(event.stage_leaderboards.where(stage_id: i-1).first,
+                                                event.stage_leaderboards.where(stage_id: i  ).first)
+                  pos = 0
+                  curr_result.each do |entry|
+                    pos += 1
+                %>
                 <tr>
-                  <td><%= entry["Position"] %></td>
+                  <td><%= sprintf "%2d", pos %></td>
                   <td><%= entry["Name"] %></td>
                   <td><%= entry["VehicleName"] %></td>
                   <td><%= entry["Time"] %></td>
