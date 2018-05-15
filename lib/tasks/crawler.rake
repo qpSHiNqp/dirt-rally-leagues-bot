@@ -12,4 +12,17 @@ namespace :crawler do
       SeasonStandingUpdateJob.perform_later
     end
   end
+
+  namespace :events do
+    namespace :daily1 do
+    end
+    namespace :daily2 do
+    end
+    namespace :weekly1 do
+    end
+    namespace :weekly2 do
+    end
+    namespace :monthly do
+    end
+  end
 end

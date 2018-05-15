@@ -10,6 +10,7 @@ end
 gem 'rails', '~> 5.1.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -63,3 +64,7 @@ gem 'delayed_job_active_record'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'whenever', :require => false
+
+gem 'unicorn'
+
+gem 'daemons'

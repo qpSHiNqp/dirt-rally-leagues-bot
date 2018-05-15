@@ -55,4 +55,4 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
 # host
-Rails.application.routes.default_url_options[:host] = '13.230.155.124:3000'
+Rails.application.routes.default_url_options[:host] = 'dirt.ninja'

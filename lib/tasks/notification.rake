@@ -27,4 +27,8 @@ namespace :notification do
   task :starting_season => :environment do
     StartingSeasonNotificationJob.perform_later
   end
+  desc "Announce ongoing events to channels"
+  task :current_event => :environment do
+    CurrentEventNotificationJob.perform_later
+  end
 end

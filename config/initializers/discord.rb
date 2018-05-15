@@ -1,7 +1,6 @@
 require 'discordrb'
 
-if defined?(Rails::Server)
-
+if defined?(Rails::Server) or defined?(Unicorn)
   bot = Discordrb::Commands::CommandBot.new token: Rails.configuration.discord['token'], client_id: Rails.configuration.discord['client_id'], prefix: "/"
 
   bot.command(:register,
@@ -23,7 +22,10 @@ if defined?(Rails::Server)
     end
     SeasonUpdateJob.perform_later
     SeasonStandingUpdateJob.perform_later
-    league.current_season.events.each {|evt| EventLeaderboardUpdateJob.perform_later evt}
+
+    m = EventLeaderboardUpdateJob.method(:perform_later)
+    league.try(:current_season).try(:events).try(:each, &m)
+
     "Registered notification for #{league_name} league"
   end
 

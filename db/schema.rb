@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118031619) do
+ActiveRecord::Schema.define(version: 20180226051410) do
 
   create_table "channels", force: :cascade do |t|
     t.string "channel_id"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20180118031619) do
   end
 
   create_table "event_leaderboards", force: :cascade do |t|
-    t.string "content"
+    t.text "content"
     t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20180118031619) do
   end
 
   create_table "season_standings", force: :cascade do |t|
-    t.string "content"
+    t.text "content"
     t.integer "season_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20180118031619) do
   end
 
   create_table "stage_leaderboards", force: :cascade do |t|
-    t.string "content"
+    t.text "content"
     t.integer "stage_id"
     t.integer "event_id"
     t.datetime "created_at", null: false

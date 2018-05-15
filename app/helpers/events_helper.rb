@@ -22,10 +22,10 @@ module EventsHelper
       entry["Time"] = time_number_to_str(entry["TimeInSec"])
       top = entry["TimeInSec"] if entry["TimeInSec"] < top
     end
-    curr.each do |entry|
+    curr.sort_by {|item| item["TimeInSec"]}
+      .each do |entry|
       diff = entry["TimeInSec"] - top
       entry["DiffFirst"] = diff > 0 ? "+#{time_number_to_str(diff)}" : "--"
     end
-    curr.sort_by {|item| item["TimeInSec"]}
   end
 end

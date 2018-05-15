@@ -24,6 +24,10 @@ every '14,29,44,59 * * * *' do
   rake "crawler:leaderboard:sync"
 end
 
+every :monday, at: '12pm' do
+  rake "notification:current_event"
+end
+
 every :day, :at => '12pm' do
   rake "notification:closing_event"
 end
