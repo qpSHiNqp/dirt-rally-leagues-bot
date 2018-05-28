@@ -2,7 +2,6 @@ class CurrentEventNotificationJob < ApplicationJob
   queue_as :default
 
   def perform
-    bot = Discordrb::Bot.new token: Rails.configuration.discord['token']
 
     League.all.each do |league|
       e = league.try(:current_season).try(:current_event)
@@ -26,7 +25,7 @@ class CurrentEventNotificationJob < ApplicationJob
 
       league.channels.each do |ch|
         Rails.logger.debug "#{league.league_name} announcement to #{ch.channel_id}"
-        bot.send_message(ch.channel_id, content)
+        Leagues::Discord.bot.send_message(ch.channel_id, content)
       end
     end
   end

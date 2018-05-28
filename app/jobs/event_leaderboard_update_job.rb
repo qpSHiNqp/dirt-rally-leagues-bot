@@ -37,7 +37,7 @@ class EventLeaderboardUpdateJob < ApplicationJob
         json = open("#{url_base}&page=#{page}&stageId=#{i}") {|f| f.read }
         stage_entries.concat(JSON.parse(json)["Entries"])
       end
-      if event.stage_leaderboards.where(stage_id: i).blank?
+      if event.stage_leaderboards.find_by(stage_id: i).blank?
         event.stage_leaderboards.build(
           stage_id: i,
           content: stage_entries.to_json,
@@ -55,7 +55,7 @@ class EventLeaderboardUpdateJob < ApplicationJob
           is_checkpoint: data["IsCheckpoint"]
                                       ).save
       else
-        event.stage_leaderboards.where(stage_id: i).first.update(
+        event.stage_leaderboards.find_by(stage_id: i).update(
           content: stage_entries.to_json,
           location: data["LocationName"],
           location_image: data["LocationImage"],

@@ -6,11 +6,10 @@ class ClosedSeasonNotificationJob < ApplicationJob
     closed_seasons = Event.where(close_at: 1.hour.ago..Time.zone.now).select {|event|
       1.hour.ago <= event.season.close_at and event.season.close_at <= Time.zone.now
     }.map{|event| event.season}
-    bot = Discordrb::Bot.new token: Rails.configuration.discord['token']
 
     closed_seasons.each do |season|
       season.league.channels.each do |ch|
-        bot.send_message(ch.channel_id, "#{season.league.league_name}のシーズンが終了しました\n" +
+        Leagues::Discord.bot.send_message(ch.channel_id, "#{season.league.league_name}のシーズンが終了しました\n" +
         "順位:\n" +
         "```#{season.standing.to_s}```\n" +
         Rails.application.routes.url_helpers.season_url(season));
