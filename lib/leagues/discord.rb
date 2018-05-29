@@ -2,8 +2,12 @@ require 'discordrb'
 
 module Leagues
   class Discord
+    @@bot = nil
     def self.bot
-      @@bot = Discordrb::Bot.new Rails.application.config_for(:discord).symbolize_keys if @@bot.blank?
+      if @@bot.blank?
+        conf = Rails.application.config_for(:discord).symbolize_keys
+        @@bot = Discordrb::Bot.new token: conf[:token], client_id: conf[:client_id]
+      end
       @@bot
     end
 

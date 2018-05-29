@@ -2,7 +2,6 @@ class CurrentEventNotificationJob < ApplicationJob
   queue_as :default
 
   def perform
-
     League.all.each do |league|
       e = league.try(:current_season).try(:current_event)
       next if e.blank?
@@ -13,7 +12,7 @@ class CurrentEventNotificationJob < ApplicationJob
       dd, hh = hh.divmod(24)
 
       url = "#{Rails.application.routes.url_helpers.season_url(e.season)}##{e.title.gsub(' ', '')}"
-      content = "あと#{dd}日と#{hh}時間#{mm}分で#{e.title} (#{e.countries})が終了します"
+      content = "#{e.title} (#{e.countries})終了まで、あと#{dd}日と#{hh}時間#{mm}分です"
 
       if e.leaderboard.content.length > 0
         content += "\n現在の完走者と順位:\n```#{e.leaderboard.to_s}```"
