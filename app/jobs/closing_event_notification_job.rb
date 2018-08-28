@@ -7,7 +7,7 @@ class ClosingEventNotificationJob < ApplicationJob
 
     closing_events.each do |event|
       hours = ((event.close_at - Time.zone.now) / 1.hour).floor
-      minutes = (((event.close_at - Time.zone.now) - hours * 1.hour) / 1.minute).round
+      minutes = (((event.close_at - Time.zone.now) - hours * 1.hour) / 1.minute).floor
       event.season.league.channels.each do |ch|
         Leagues::Discord.bot.send_message(ch.channel_id, "あと#{hours}時間#{minutes}分で#{event.title} (#{event.countries})が終了します\n" +
         "現在の完走者と順位:\n" +

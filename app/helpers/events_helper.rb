@@ -1,7 +1,11 @@
 module EventsHelper
   def time_str_to_number(str)
     tmp = str.split(":")
-    tmp[0].to_i*60 + tmp[1].to_f
+    ret = tmp[0].to_i*60 + tmp[1].to_f
+    if tmp.length == 3
+      ret = ret * 60 + tmp[2].to_f
+    end
+    ret
   end
   def time_number_to_str(num)
     sec = num % 60
